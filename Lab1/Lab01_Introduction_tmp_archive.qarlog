@@ -1,0 +1,22 @@
+Quartus II Archive log --	E:/Non-bootFiles/EELE-367/Lab1/Lab01_Introduction_tmp_archive.qarlog
+
+Archive:	E:/Non-bootFiles/EELE-367/Lab1/Lab01_Introduction_tmp_archive.qar
+Date:		Wed Feb 04 16:11:17 2015
+Quartus II 64-Bit		14.0.0 Build 200 06/17/2014 SJ Full Version
+
+	=========== Files Selected: ===========
+E:/Non-bootFiles/EELE-367/Lab1/Lab01_Introduction.qpf
+E:/Non-bootFiles/EELE-367/Lab1/output_files/Chain1.cdf
+E:/Non-bootFiles/EELE-367/Lab1/top.qsf
+E:/Non-bootFiles/EELE-367/Lab1/top.vhd
+c:/altera/14.0/quartus/bin64/assignment_defaults.qdf
+	======= Total: 5 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.
+
+
+******* Archived project restoration attempt on Wed Feb 04 16:11:20 2015
+Source archive file:	E:/Non-bootFiles/EELE-367/Lab1/Lab01_Introduction_tmp_archive.qar
+Archive was extracted into	E:/Non-bootFiles/EELE-367/Lab2/
+		 - successfully.

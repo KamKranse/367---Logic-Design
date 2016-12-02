@@ -1,0 +1,672 @@
+|top
+Clock => clock_div_2ton:ClockDiv1.Clock_in
+Reset => clock_div_2ton:ClockDiv1.Reset
+Reset => dflipflop:Counter0.Reset
+Reset => dflipflop:Counter1.Reset
+Reset => dflipflop:Counter2.Reset
+Reset => dflipflop:Counter3.Reset
+SW1[0] => ~NO_FANOUT~
+SW1[1] => ~NO_FANOUT~
+SW1[2] => ~NO_FANOUT~
+SW1[3] => ~NO_FANOUT~
+SW1[4] => ~NO_FANOUT~
+SW1[5] => ~NO_FANOUT~
+SW1[6] => ~NO_FANOUT~
+SW1[7] => ~NO_FANOUT~
+SW2[0] => clock_div_2ton:ClockDiv1.Sel_in[0]
+SW2[0] => LED_Blue[0].DATAIN
+SW2[1] => clock_div_2ton:ClockDiv1.Sel_in[1]
+SW2[1] => LED_Blue[1].DATAIN
+SW2[2] => clock_div_2ton:ClockDiv1.Sel_in[2]
+SW2[2] => LED_Blue[2].DATAIN
+SW2[3] => clock_div_2ton:ClockDiv1.Sel_in[3]
+SW2[3] => LED_Blue[3].DATAIN
+SW2[4] => clock_div_2ton:ClockDiv1.Sel_in[4]
+SW2[4] => LED_Blue[4].DATAIN
+SW2[5] => ~NO_FANOUT~
+SW2[6] => ~NO_FANOUT~
+SW2[7] => ~NO_FANOUT~
+LED_Red[0] <= dflipflop:Counter0.Q
+LED_Red[1] <= dflipflop:Counter1.Q
+LED_Red[2] <= dflipflop:Counter2.Q
+LED_Red[3] <= dflipflop:Counter3.Q
+LED_Red[4] <= <GND>
+LED_Red[5] <= <GND>
+LED_Red[6] <= <GND>
+LED_Red[7] <= clock_div_2ton:ClockDiv1.Clock_out
+LED_Blue[0] <= SW2[0].DB_MAX_OUTPUT_PORT_TYPE
+LED_Blue[1] <= SW2[1].DB_MAX_OUTPUT_PORT_TYPE
+LED_Blue[2] <= SW2[2].DB_MAX_OUTPUT_PORT_TYPE
+LED_Blue[3] <= SW2[3].DB_MAX_OUTPUT_PORT_TYPE
+LED_Blue[4] <= SW2[4].DB_MAX_OUTPUT_PORT_TYPE
+LED_Blue[5] <= <GND>
+LED_Blue[6] <= <GND>
+LED_Blue[7] <= <GND>
+LED17[0] <= decoder_7seg_4in:Decode1.F[0]
+LED17[1] <= decoder_7seg_4in:Decode1.F[1]
+LED17[2] <= decoder_7seg_4in:Decode1.F[2]
+LED17[3] <= decoder_7seg_4in:Decode1.F[3]
+LED17[4] <= decoder_7seg_4in:Decode1.F[4]
+LED17[5] <= decoder_7seg_4in:Decode1.F[5]
+LED17[6] <= decoder_7seg_4in:Decode1.F[6]
+LED17[7] <= decoder_7seg_4in:Decode1.F[7]
+LED18[0] <= decoder_7seg_4in:Decode2.F[0]
+LED18[1] <= decoder_7seg_4in:Decode2.F[1]
+LED18[2] <= decoder_7seg_4in:Decode2.F[2]
+LED18[3] <= decoder_7seg_4in:Decode2.F[3]
+LED18[4] <= decoder_7seg_4in:Decode2.F[4]
+LED18[5] <= decoder_7seg_4in:Decode2.F[5]
+LED18[6] <= decoder_7seg_4in:Decode2.F[6]
+LED18[7] <= decoder_7seg_4in:Decode2.F[7]
+LED19[0] <= decoder_7seg_4in:Decode3.F[0]
+LED19[1] <= decoder_7seg_4in:Decode3.F[1]
+LED19[2] <= decoder_7seg_4in:Decode3.F[2]
+LED19[3] <= decoder_7seg_4in:Decode3.F[3]
+LED19[4] <= decoder_7seg_4in:Decode3.F[4]
+LED19[5] <= decoder_7seg_4in:Decode3.F[5]
+LED19[6] <= decoder_7seg_4in:Decode3.F[6]
+LED19[7] <= decoder_7seg_4in:Decode3.F[7]
+LED20[0] <= decoder_7seg_4in:Decode4.F[0]
+LED20[1] <= decoder_7seg_4in:Decode4.F[1]
+LED20[2] <= decoder_7seg_4in:Decode4.F[2]
+LED20[3] <= decoder_7seg_4in:Decode4.F[3]
+LED20[4] <= decoder_7seg_4in:Decode4.F[4]
+LED20[5] <= decoder_7seg_4in:Decode4.F[5]
+LED20[6] <= decoder_7seg_4in:Decode4.F[6]
+LED20[7] <= decoder_7seg_4in:Decode4.F[7]
+
+
+|top|clock_div_2ton:ClockDiv1
+Clock_in => dflipflop:DFF0.Clock
+Reset => dflipflop:DFF0.Reset
+Reset => dflipflop:DFF1.Reset
+Reset => dflipflop:DFF2.Reset
+Reset => dflipflop:DFF3.Reset
+Reset => dflipflop:DFF4.Reset
+Reset => dflipflop:DFF5.Reset
+Reset => dflipflop:DFF6.Reset
+Reset => dflipflop:DFF7.Reset
+Reset => dflipflop:DFF8.Reset
+Reset => dflipflop:DFF9.Reset
+Reset => dflipflop:DFF10.Reset
+Reset => dflipflop:DFF11.Reset
+Reset => dflipflop:DFF12.Reset
+Reset => dflipflop:DFF13.Reset
+Reset => dflipflop:DFF14.Reset
+Reset => dflipflop:DFF15.Reset
+Reset => dflipflop:DFF16.Reset
+Reset => dflipflop:DFF17.Reset
+Reset => dflipflop:DFF18.Reset
+Reset => dflipflop:DFF19.Reset
+Reset => dflipflop:DFF20.Reset
+Reset => dflipflop:DFF21.Reset
+Reset => dflipflop:DFF22.Reset
+Reset => dflipflop:DFF23.Reset
+Reset => dflipflop:DFF24.Reset
+Reset => dflipflop:DFF25.Reset
+Reset => dflipflop:DFF26.Reset
+Reset => dflipflop:DFF27.Reset
+Reset => dflipflop:DFF28.Reset
+Reset => dflipflop:DFF29.Reset
+Reset => dflipflop:DFF30.Reset
+Reset => dflipflop:DFF31.Reset
+Sel_in[0] => Mux0.IN4
+Sel_in[1] => Mux0.IN3
+Sel_in[2] => Mux0.IN2
+Sel_in[3] => Mux0.IN1
+Sel_in[4] => Mux0.IN0
+Clock_out <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF0
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF1
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF2
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF3
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF4
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF5
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF6
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF7
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF8
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF9
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF10
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF11
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF12
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF13
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF14
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF15
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF16
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF17
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF18
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF19
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF20
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF21
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF22
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF23
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF24
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF25
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF26
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF27
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF28
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF29
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF30
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|clock_div_2ton:ClockDiv1|dflipflop:DFF31
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|dflipflop:Counter0
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|dflipflop:Counter1
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|dflipflop:Counter2
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|dflipflop:Counter3
+Clock => Qn~reg0.CLK
+Clock => Q~reg0.CLK
+Reset => Qn~reg0.PRESET
+Reset => Q~reg0.ACLR
+D => Q~reg0.DATAIN
+D => Qn~reg0.DATAIN
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Qn <= Qn~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|decoder_7seg_4in:Decode1
+A[0] => Mux0.IN19
+A[0] => Mux1.IN19
+A[0] => Mux2.IN19
+A[0] => Mux3.IN19
+A[0] => Mux4.IN19
+A[0] => Mux5.IN19
+A[0] => Mux6.IN19
+A[1] => Mux0.IN18
+A[1] => Mux1.IN18
+A[1] => Mux2.IN18
+A[1] => Mux3.IN18
+A[1] => Mux4.IN18
+A[1] => Mux5.IN18
+A[1] => Mux6.IN18
+A[2] => Mux0.IN17
+A[2] => Mux1.IN17
+A[2] => Mux2.IN17
+A[2] => Mux3.IN17
+A[2] => Mux4.IN17
+A[2] => Mux5.IN17
+A[2] => Mux6.IN17
+A[3] => Mux0.IN16
+A[3] => Mux1.IN16
+A[3] => Mux2.IN16
+A[3] => Mux3.IN16
+A[3] => Mux4.IN16
+A[3] => Mux5.IN16
+A[3] => Mux6.IN16
+F[0] <= <GND>
+F[1] <= Mux6.DB_MAX_OUTPUT_PORT_TYPE
+F[2] <= Mux5.DB_MAX_OUTPUT_PORT_TYPE
+F[3] <= Mux4.DB_MAX_OUTPUT_PORT_TYPE
+F[4] <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
+F[5] <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
+F[6] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
+F[7] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|decoder_7seg_4in:Decode2
+A[0] => Mux0.IN19
+A[0] => Mux1.IN19
+A[0] => Mux2.IN19
+A[0] => Mux3.IN19
+A[0] => Mux4.IN19
+A[0] => Mux5.IN19
+A[0] => Mux6.IN19
+A[1] => Mux0.IN18
+A[1] => Mux1.IN18
+A[1] => Mux2.IN18
+A[1] => Mux3.IN18
+A[1] => Mux4.IN18
+A[1] => Mux5.IN18
+A[1] => Mux6.IN18
+A[2] => Mux0.IN17
+A[2] => Mux1.IN17
+A[2] => Mux2.IN17
+A[2] => Mux3.IN17
+A[2] => Mux4.IN17
+A[2] => Mux5.IN17
+A[2] => Mux6.IN17
+A[3] => Mux0.IN16
+A[3] => Mux1.IN16
+A[3] => Mux2.IN16
+A[3] => Mux3.IN16
+A[3] => Mux4.IN16
+A[3] => Mux5.IN16
+A[3] => Mux6.IN16
+F[0] <= <GND>
+F[1] <= Mux6.DB_MAX_OUTPUT_PORT_TYPE
+F[2] <= Mux5.DB_MAX_OUTPUT_PORT_TYPE
+F[3] <= Mux4.DB_MAX_OUTPUT_PORT_TYPE
+F[4] <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
+F[5] <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
+F[6] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
+F[7] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|decoder_7seg_4in:Decode3
+A[0] => Mux0.IN19
+A[0] => Mux1.IN19
+A[0] => Mux2.IN19
+A[0] => Mux3.IN19
+A[0] => Mux4.IN19
+A[0] => Mux5.IN19
+A[0] => Mux6.IN19
+A[1] => Mux0.IN18
+A[1] => Mux1.IN18
+A[1] => Mux2.IN18
+A[1] => Mux3.IN18
+A[1] => Mux4.IN18
+A[1] => Mux5.IN18
+A[1] => Mux6.IN18
+A[2] => Mux0.IN17
+A[2] => Mux1.IN17
+A[2] => Mux2.IN17
+A[2] => Mux3.IN17
+A[2] => Mux4.IN17
+A[2] => Mux5.IN17
+A[2] => Mux6.IN17
+A[3] => Mux0.IN16
+A[3] => Mux1.IN16
+A[3] => Mux2.IN16
+A[3] => Mux3.IN16
+A[3] => Mux4.IN16
+A[3] => Mux5.IN16
+A[3] => Mux6.IN16
+F[0] <= <GND>
+F[1] <= Mux6.DB_MAX_OUTPUT_PORT_TYPE
+F[2] <= Mux5.DB_MAX_OUTPUT_PORT_TYPE
+F[3] <= Mux4.DB_MAX_OUTPUT_PORT_TYPE
+F[4] <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
+F[5] <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
+F[6] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
+F[7] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|decoder_7seg_4in:Decode4
+A[0] => Mux0.IN19
+A[0] => Mux1.IN19
+A[0] => Mux2.IN19
+A[0] => Mux3.IN19
+A[0] => Mux4.IN19
+A[0] => Mux5.IN19
+A[0] => Mux6.IN19
+A[1] => Mux0.IN18
+A[1] => Mux1.IN18
+A[1] => Mux2.IN18
+A[1] => Mux3.IN18
+A[1] => Mux4.IN18
+A[1] => Mux5.IN18
+A[1] => Mux6.IN18
+A[2] => Mux0.IN17
+A[2] => Mux1.IN17
+A[2] => Mux2.IN17
+A[2] => Mux3.IN17
+A[2] => Mux4.IN17
+A[2] => Mux5.IN17
+A[2] => Mux6.IN17
+A[3] => Mux0.IN16
+A[3] => Mux1.IN16
+A[3] => Mux2.IN16
+A[3] => Mux3.IN16
+A[3] => Mux4.IN16
+A[3] => Mux5.IN16
+A[3] => Mux6.IN16
+F[0] <= <GND>
+F[1] <= Mux6.DB_MAX_OUTPUT_PORT_TYPE
+F[2] <= Mux5.DB_MAX_OUTPUT_PORT_TYPE
+F[3] <= Mux4.DB_MAX_OUTPUT_PORT_TYPE
+F[4] <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
+F[5] <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
+F[6] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
+F[7] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+

@@ -1,0 +1,102 @@
+-- Clock_div_2ton.vhd
+-- Collin Moore
+-- Feb 2015
+-- Lab 4
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+entity clock_div_2ton is
+	port( Clock_in: in std_logic;
+			Reset		: in std_logic;
+			Sel_in	: in std_logic_vector (4 downto 0);
+			Clock_out : out std_logic);
+end entity;
+
+architecture clock_div_2ton_arch of clock_div_2ton is
+	signal Clock_div  : std_logic;
+	signal Sel_port	: std_logic_vector(4 downto 0); 
+	
+	component dflipflop is
+		port
+		(	Clock	: 	in	std_logic;
+			Reset	:	in std_logic;
+			D		:	in std_logic;
+			Q,Qn	:	out std_logic);
+		end component;
+			signal Count, CountN	: std_logic_vector(31 downto 0);	
+begin
+
+	DFF0 : dflipflop port map  (Clock_in,   reset, CountN(0),  Count(0),  CountN(0));
+	DFF1 : dflipflop port map  (CountN(0),  reset, CountN(1),  Count(1),  CountN(1));
+	DFF2 : dflipflop port map  (CountN(1),  reset, CountN(2),  Count(2),  CountN(2));
+	DFF3 : dflipflop port map  (CountN(2),  reset, CountN(3),  Count(3),  CountN(3));
+	DFF4 : dflipflop port map  (CountN(3),  reset, CountN(4),  Count(4),  CountN(4));
+	DFF5 : dflipflop port map  (CountN(4),  reset, CountN(5),  Count(5),  CountN(5));
+	DFF6 : dflipflop port map  (CountN(5),  reset, CountN(6),  Count(6),  CountN(6));
+	DFF7 : dflipflop port map  (CountN(6),  reset, CountN(7),  Count(7),  CountN(7));
+	DFF8 : dflipflop port map  (CountN(7),  reset, CountN(8),  Count(8),  CountN(8));
+	DFF9 : dflipflop port map  (CountN(8),  reset, CountN(9),  Count(9),  CountN(9));
+	DFF10 : dflipflop port map (CountN(9),  reset, CountN(10), Count(10), CountN(10));
+	DFF11 : dflipflop port map (CountN(10), reset, CountN(11), Count(11), CountN(11));
+	DFF12 : dflipflop port map (CountN(11), reset, CountN(12), Count(12), CountN(12));
+	DFF13 : dflipflop port map (CountN(12), reset, CountN(13), Count(13), CountN(13));
+	DFF14 : dflipflop port map (CountN(13), reset, CountN(14), Count(14), CountN(14));
+	DFF15 : dflipflop port map (CountN(14), reset, CountN(15), Count(15), CountN(15));
+	DFF16 : dflipflop port map (CountN(15), reset, CountN(16), Count(16), CountN(16));
+	DFF17 : dflipflop port map (CountN(16), reset, CountN(17), Count(17), CountN(17));
+	DFF18 : dflipflop port map (CountN(17), reset, CountN(18), Count(18), CountN(18));
+	DFF19 : dflipflop port map (CountN(18), reset, CountN(19), Count(19), CountN(19));
+	DFF20 : dflipflop port map (CountN(19), reset, CountN(20), Count(20), CountN(20));
+	DFF21 : dflipflop port map (CountN(20), reset, CountN(21), Count(21), CountN(21));
+	DFF22 : dflipflop port map (CountN(21), reset, CountN(22), Count(22), CountN(22));
+	DFF23 : dflipflop port map (CountN(22), reset, CountN(23), Count(23), CountN(23));
+	DFF24 : dflipflop port map (CountN(23), reset, CountN(24), Count(24), CountN(24));
+	DFF25 : dflipflop port map (CountN(24), reset, CountN(25), Count(25), CountN(25));
+	DFF26 : dflipflop port map (CountN(25), reset, CountN(26), Count(26), CountN(26));
+	DFF27 : dflipflop port map (CountN(26), reset, CountN(27), Count(27), CountN(27));
+	DFF28 : dflipflop port map (CountN(27), reset, CountN(28), Count(28), CountN(28));
+	DFF29 : dflipflop port map (CountN(28), reset, CountN(29), Count(29), CountN(29));
+	DFF30 : dflipflop port map (CountN(29), reset, CountN(30), Count(30), CountN(30));
+	DFF31 : dflipflop port map (CountN(30), reset, CountN(31), Count(31), CountN(31));
+	
+	MUX: process (Sel_in(4 downto 0), Count(31 downto 0))	
+	begin
+
+	case (Sel_in(4 downto 0)) is
+	
+	when "00000" => Clock_out <= count(0);
+	when "00001" => Clock_out <= count(1);
+	when "00010" => Clock_out <= count(2);
+	when "00011" => Clock_out <= count(3);
+	when "00100" => Clock_out <= count(4);
+	when "00101" => Clock_out <= count(5);
+	when "00110" => Clock_out <= count(6);
+	when "00111" => Clock_out <= count(7);
+	when "01000" => Clock_out <= count(8);
+	when "01001" => Clock_out <= count(9);
+	when "01010" => Clock_out <= count(10);
+	when "01011" => Clock_out <= count(11);
+	when "01100" => Clock_out <= count(12);
+	when "01101" => Clock_out <= count(13);
+	when "01110" => Clock_out <= count(14);
+	when "01111" => Clock_out <= count(15);
+	when "10000" => Clock_out <= count(16);
+	when "10001" => Clock_out <= count(17);
+	when "10010" => Clock_out <= count(18);
+	when "10011" => Clock_out <= count(19);
+	when "10100" => Clock_out <= count(20);
+	when "10101" => Clock_out <= count(21);
+	when "10110" => Clock_out <= count(22);
+	when "10111" => Clock_out <= count(23);
+	when "11000" => Clock_out <= count(24);
+	when "11001" => Clock_out <= count(25);
+	when "11010" => Clock_out <= count(26);
+	when "11011" => Clock_out <= count(27);
+	when "11100" => Clock_out <= count(28);
+	when "11101" => Clock_out <= count(29);
+	when "11110" => Clock_out <= count(30);
+	when "11111" => Clock_out <= count(31);	
+  end case;
+  
+end process;
+	
+end architecture;

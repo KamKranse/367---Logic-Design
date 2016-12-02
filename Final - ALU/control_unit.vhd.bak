@@ -1,0 +1,763 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+
+entity control_unit is
+	port	(Clock       : in std_logic;
+	      Reset       : in std_logic;
+	      CCR_Results : in std_logic_vector(3 downto 0);
+	      IR          : in std_logic_vector(7 downto 0);
+	      IR_Load     : out std_logic;
+	      MAR_Load    : out std_logic;
+	      PC_Load     : out std_logic;
+	      PC_Inc      : out std_logic;
+	      A_Load      : out std_logic;
+	      B_Load      : out std_logic;
+	      ALU_Sel     : out std_logic_vector(2 downto 0);
+	      CCR_Load    : out std_logic;
+	      Bus1_Sel    : out std_logic_vector(1 downto 0);
+	      Bus2_Sel    : out std_logic_vector(1 downto 0);
+	      write       : out std_logic);
+end entity;
+
+
+architecture control_unit_arch of control_unit is
+
+type state_type is (s_fetch_0,s_fetch_1,s_fetch_2,
+					          s_decode_3,
+					          s_lda_imm_4,s_lda_imm_5,s_lda_imm_6,
+					          s_lda_dir_4,s_lda_dir_5,s_lda_dir_6,s_lda_dir_7,s_lda_dir_8,
+					          s_sta_dir_4,s_sta_dir_5,s_sta_dir_6,s_sta_dir_7,
+					          s_ldb_imm_4,s_ldb_imm_5,s_ldb_imm_6,
+					          s_ldb_dir_4,s_ldb_dir_5,s_ldb_dir_6,s_ldb_dir_7,s_ldb_dir_8,
+					          s_stb_dir_4,s_stb_dir_5,s_stb_dir_6,s_stb_dir_7,
+					          s_add_ab_4,
+					          s_sub_ab_4,
+					          s_bra_4,s_bra_5,s_bra_6,s_bra_7,
+					          s_beq_4,s_beq_5,s_beq_6,s_beq_7,
+					          s_bvs_4,s_bvs_5,s_bvs_6,s_bvs_7);
+
+  constant LDA_IMM  : std_logic_vector(7 downto 0)  :=x"86";
+  constant LDA_DIR  : std_logic_vector(7 downto 0)  :=x"87";
+  constant LDB_IMM  : std_logic_vector(7 downto 0)  :=x"88";
+  constant LDB_DIR  : std_logic_vector(7 downto 0)  :=x"89";
+  constant STA_DIR  : std_logic_vector(7 downto 0)  :=x"96";
+  constant STB_DIR  : std_logic_vector(7 downto 0)  :=x"97";
+  constant ADD_AB   : std_logic_vector(7 downto 0)  :=x"42";
+  constant SUB_AB   : std_logic_vector(7 downto 0)  :=x"43";
+  constant AND_AB   : std_logic_vector(7 downto 0)  :=x"44";
+  constant OR_AB    : std_logic_vector(7 downto 0)  :=x"45";
+  constant INCA     : std_logic_vector(7 downto 0)  :=x"46";
+  constant INCB     : std_logic_vector(7 downto 0)  :=x"47";
+  constant DECA     : std_logic_vector(7 downto 0)  :=x"48";
+  constant DECB     : std_logic_vector(7 downto 0)  :=x"49";
+  constant BRA      : std_logic_vector(7 downto 0)  :=x"20";
+  constant BMI      : std_logic_vector(7 downto 0)  :=x"21";
+  constant BPL      : std_logic_vector(7 downto 0)  :=x"22";
+  constant BEQ      : std_logic_vector(7 downto 0)  :=x"23";
+  constant BNE      : std_logic_vector(7 downto 0)  :=x"24";
+  constant BVS      : std_logic_vector(7 downto 0)  :=x"25";
+  constant BVC      : std_logic_vector(7 downto 0)  :=x"26";
+  constant BCS      : std_logic_vector(7 downto 0)  :=x"27";
+  constant BCC      : std_logic_vector(7 downto 0)  :=x"28";
+  constant ADD      : std_logic_vector(2 downto 0)  :="000";
+  constant SUB      : std_logic_vector(2 downto 0)  :="001";
+  constant PC       : std_logic_vector(1 downto 0)  :="00";
+  constant A        : std_logic_vector(1 downto 0)  :="01";
+  constant B        : std_logic_vector(1 downto 0)  :="10";
+  constant ALU      : std_logic_vector(1 downto 0)  :="00";
+  constant Bus1     : std_logic_vector(1 downto 0)  :="01";
+  constant frm_mem  : std_logic_vector(1 downto 0)  :="10";
+  constant Load     : std_logic                     :='1';
+  
+					
+signal current_state, next_state	:	state_type;
+
+begin 
+  
+STATE_MEMORY	:	process(Clock, Reset)
+	begin
+		if (Reset ='0')then
+			current_state <= s_fetch_0;
+		elsif (clock'event and clock ='1')then
+			current_state <= next_state;
+		end if;
+	end process;
+	
+NEXT_STATE_LOGIC	:	process(current_state, IR, CCR_results)
+	begin
+		if (current_state = s_fetch_0)then
+			next_state <= s_fetch_1;
+		elsif (current_state = s_fetch_1)then
+			next_state <= s_fetch_2;
+		elsif (current_state = s_fetch_2)then
+			next_state <= s_decode_3;
+		elsif (current_state = s_decode_3)then
+			if(IR = LDA_IMM)then
+				next_state <= s_lda_imm_4;
+			elsif(IR = LDA_DIR)then
+				next_state <= s_lda_dir_4;
+			elsif(IR = STA_DIR)then
+				next_state <= s_sta_dir_4;
+			elsif(IR = LDB_IMM)then
+				next_state <= s_ldb_imm_4;
+			elsif(IR = LDB_DIR)then
+				next_state <= s_ldb_dir_4;
+			elsif(IR = STB_DIR)then
+				next_state <= s_stb_dir_4;	
+			elsif(IR = ADD_AB)then
+				next_state <= s_add_ab_4;
+			elsif(IR = SUB_AB)then
+			  next_state <= s_sub_ab_4;
+			elsif(IR = BRA)then
+				next_state <= s_bra_4;
+			elsif(IR = BEQ and CCR_results(2)='1')then
+				next_state <= s_beq_4;
+			elsif(IR = BEQ and CCR_results(2)='0')then
+				next_state <= s_beq_7;
+			else
+				next_state <= s_fetch_0;
+			end if;
+		
+-------LDA_IMM------------------------------------------------------------	
+		elsif(current_state = s_lda_imm_4)then
+		  next_state <= s_lda_imm_5;
+		elsif(current_state = s_lda_imm_5)then
+		  next_state <= s_lda_imm_6;
+		elsif(current_state <= s_lda_imm_6) then
+		  next_state <= s_fetch_0;
+------LDA_DIR------------------------------------------------------------------
+		elsif(current_state = s_lda_dir_4) then
+		  next_state <= s_lda_dir_5;
+		elsif(current_state = s_lda_dir_5) then
+		  next_state <= s_lda_dir_6;
+		elsif(current_state = s_lda_dir_6) then
+		  next_state <= s_lda_dir_7;
+		elsif(current_state = s_lda_dir_7) then
+		  next_state <= s_lda_dir_8;
+		elsif(current_state = s_lda_dir_8) then
+		  next_state <= s_fetch_0;
+-----STA_DIR----------------------------------------------------------------------
+		elsif(current_state = s_sta_dir_4) then
+		  next_state <= s_sta_dir_5;
+		elsif(current_state = s_sta_dir_5) then
+		  next_state <= s_sta_dir_6;
+		elsif(current_state = s_sta_dir_6) then
+		  next_state <= s_sta_dir_7;
+		elsif(current_state = s_sta_dir_7) then
+		  next_state <= s_fetch_0; 
+-------ADD_AB-----------------------------------------------------------------------
+		elsif(current_state = s_add_ab_4) then 
+		  next_state <= s_fetch_0;
+-----LDB_IMM-------------------------------------------------------------------------	
+		elsif(current_state = s_ldb_imm_4)then
+		  next_state <= s_ldb_imm_5;
+		elsif(current_state = s_ldb_imm_5)then
+		  next_state <= s_ldb_imm_6;
+		elsif(current_state <= s_ldb_imm_6) then
+		  next_state <= s_fetch_0;
+-----LDB_DIR----------------------------------------------------------------------------------
+		elsif(current_state = s_ldb_dir_4) then
+		  next_state <= s_ldb_dir_5;
+		elsif(current_state = s_ldb_dir_5) then
+		  next_state <= s_ldb_dir_6;
+		elsif(current_state = s_ldb_dir_6) then
+		  next_state <= s_ldb_dir_7;
+		elsif(current_state = s_ldb_dir_7) then
+		  next_state <= s_ldb_dir_8;
+		elsif(current_state = s_ldb_dir_8) then
+		  next_state <= s_fetch_0;
+----STB_DIR--------------------------------------------------------------------------------------
+		elsif(current_state = s_stb_dir_4) then
+		  next_state <= s_stb_dir_5;
+		elsif(current_state = s_stb_dir_5) then
+		  next_state <= s_stb_dir_6;
+		elsif(current_state = s_stb_dir_6) then
+		  next_state <= s_stb_dir_7;
+		elsif(current_state = s_stb_dir_7) then
+		  next_state <= s_fetch_0; 
+----BRA--------------------------------------------------------------------------------------------
+		elsif(current_state = s_bra_4) then
+		  next_state <= s_bra_5;
+		elsif(current_state = s_bra_5) then
+		  next_state <= s_bra_6;  
+		elsif(current_state = s_bra_6) then
+		  next_state <= s_fetch_0;
+----BEQ-------------------------------------------------------------------------------------------
+		elsif(current_state = s_beq_4) then
+		  next_state <= s_beq_5;
+		elsif(current_state = s_beq_5) then
+		  next_state <= s_beq_6;  
+		elsif(current_state = s_beq_6) then
+		  next_state <= s_fetch_0;
+		elsif(current_state = s_beq_7) then
+		  next_state <= s_fetch_0;		  
+------SUB_AB-----------------------------------------------------------------
+    elsif(current_state = s_sub_ab_4)then
+      next_state <= s_fetch_0;
+------BVS-----------------------------------------------------------------------
+ 		elsif(current_state = s_bvs_4) then
+		  next_state <= s_bvs_5;
+		elsif(current_state = s_bvs_5) then
+		  next_state <= s_bvs_6;  
+		elsif(current_state = s_bvs_6) then
+		  next_state <= s_fetch_0;
+		elsif(current_state = s_bvs_7) then
+		  next_state <= s_fetch_0;		
+	end if;
+
+
+			
+	end process;
+	
+OUTPUT_LOGIC : process(current_state)
+	begin
+		case(current_state)is
+			when s_fetch_0 =>			--put pc onto MAR to read Opcode
+				IR_Load		 <=	'0';
+				MAR_Load	 <=	Load;
+				PC_Load		 <=	'0';
+				PC_Inc		  <=	'0';
+				A_Load		  <=	'0';
+				B_Load		  <=	'0';
+				ALU_Sel		 <=	"000";
+				CCR_Load	 <=	'0';
+				Bus1_Sel	 <=	PC;	
+				Bus2_Sel	 <=	Bus1;	
+				write		   <=	'0';
+			
+			when s_fetch_1 =>			--incriment pc
+				IR_Load		 <=	'0';
+				MAR_Load	 <=	'0';
+				PC_Load		 <=	'0';
+				PC_Inc		  <=	Load;
+				A_Load		  <=	'0';
+				B_Load		  <=	'0';
+				ALU_Sel		 <=	"000";
+				CCR_Load	 <=	'0';
+				Bus1_Sel	 <=	"00";	
+				Bus2_Sel	 <=	"00";	
+				write		   <=	'0';
+				
+			when s_fetch_2 =>			--?????????
+				IR_Load		 <=	Load;
+				MAR_Load	 <=	'0';
+				PC_Load		 <=	'0';
+				PC_Inc		  <=	'0';
+				A_Load		  <=	'0';
+				B_Load		  <=	'0';
+				ALU_Sel		 <=	"000";
+				CCR_Load	 <=	'0';
+				Bus1_Sel	 <=	"00";	
+				Bus2_Sel	 <=	frm_mem;	
+				write		   <=	'0';
+				
+--------LDA_IMM Commands-----------------------------------------------------------------------------------------------
+			when s_lda_imm_4 =>			--?????????
+				IR_Load		 <=	'0';
+				MAR_Load	 <=	Load;
+				PC_Load		 <=	'0';
+				PC_Inc		  <=	'0';
+				A_Load		  <=	'0';
+				B_Load		  <=	'0';
+				ALU_Sel		 <=	"000";
+				CCR_Load	 <=	'0';
+				Bus1_Sel	 <=	PC;	
+				Bus2_Sel	 <=	Bus1;	
+				write		   <=	'0';
+				
+			when s_lda_imm_5 =>			--?????????
+				IR_Load		 <=	'0';
+				MAR_Load	 <=	'0';
+				PC_Load		 <=	'0';
+				PC_Inc		  <=	Load;
+			  A_Load		  <=	'0';
+				B_Load		  <=	'0';
+				ALU_Sel		 <=	"000";
+				CCR_Load	 <=	'0';
+				Bus1_Sel	 <=	PC;	
+				Bus2_Sel	 <=	ALU;	
+				write		   <=	'0';
+				
+			when s_lda_imm_6 =>			--?????????
+				IR_Load		 <=	'0';
+				MAR_Load	 <=	'0';
+				PC_Load		 <=	'0';
+				PC_Inc		  <=	'0';
+				A_Load		  <=	Load;
+				B_Load		  <=	'0';
+				ALU_Sel		 <=	"000";
+				CCR_Load	 <=	'0';
+				Bus1_Sel	 <=	PC;	
+				Bus2_Sel	 <=	frm_mem;	
+				write		   <=	'0';
+				
+-----------LDA_DIR-------------------------------------------------------------------------------------
+				when s_lda_dir_4 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	Load;
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <= '0';
+				  A_Load		  <=	'0';
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	PC;	
+				  Bus2_Sel	 <=	Bus1;	
+				  write		   <=	'0';
+				  
+				when s_lda_dir_5 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	'0';
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <=	Load;
+				  A_Load		  <=	'0';
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	"00";	
+				  Bus2_Sel	 <=	"00";	
+				  write		   <=	'0';
+				  
+				when s_lda_dir_6 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	Load;
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <=	'0';
+				  A_Load		  <=	'0';
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	"00";	
+				  Bus2_Sel	 <=	frm_mem;	
+				  write		   <=	'0';
+				  
+				when s_lda_dir_7 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	'0';
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <=	'0';
+				  A_Load		  <=	'0';
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	"00";	
+				  Bus2_Sel	 <=	"00";	
+				  write		   <=	'0';
+				  
+				when s_lda_dir_8 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	'0';
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <=	'0';
+				  A_Load		  <=	Load;
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	"00";	
+				  Bus2_Sel	 <=	frm_mem;	
+				  write		   <=	'0';
+				  
+----------STA_DIR---------------------------------------------------------------------------------------
+				when s_sta_dir_4 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	Load;
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <=	'0';
+				  A_Load		  <=	'0';
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	"00";	
+				  Bus2_Sel	 <=	Bus1;
+				  --write		   <=	'0';
+				  
+				when s_sta_dir_5 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	'0';
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <=	Load;
+				  A_Load		  <=	'0';
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	PC;	
+				  Bus2_Sel	 <=	"00";
+				  write		   <=	'0';
+				  
+				when s_sta_dir_6 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	Load;
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <=	'0';
+				  A_Load		  <=	'0';
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	"00";	
+				  Bus2_Sel	 <=	frm_mem;	
+				  write		   <=	'0';
+				  
+				when s_sta_dir_7 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	'0';
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <=	'0';
+				  A_Load		  <=	'0';
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	A;	
+				  Bus2_Sel	 <=	"00";	
+				  write		   <=	Load;
+				  
+--------LDB_IMM Commands-----------------------------------------------------------------------------------------------
+			when s_ldb_imm_4 =>			--?????????
+				IR_Load		 <=	'0';
+				MAR_Load	 <=	Load;
+				PC_Load		 <=	'0';
+				PC_Inc		  <=	'0';
+				A_Load		  <=	'0';
+				B_Load		  <=	'0';
+				ALU_Sel		 <=	"000";
+				CCR_Load	 <=	'0';
+				Bus1_Sel	 <=	"00";	--"00"=PC "01"=A "10"=B
+				Bus2_Sel	 <=	Bus1;	--"00"=alu "01"=bus1 "10"=bus2
+				write		   <=	'0';
+				
+			when s_ldb_imm_5 =>			--?????????
+				IR_Load		 <=	'0';
+				MAR_Load	 <=	'0';
+				PC_Load		 <=	'0';
+				PC_Inc		  <=	Load;
+				A_Load		  <=	'0';
+				B_Load		  <=	'0';
+				ALU_Sel		 <=	"000";
+				CCR_Load	 <=	'0';
+				Bus1_Sel	 <=	"00";	--"00"=PC "01"=A "10"=B
+				Bus2_Sel	 <=	"00";	--"00"=alu "01"=bus1 "10"=bus2
+				write		   <=	'0';
+				
+			when s_ldb_imm_6 =>			--?????????
+				IR_Load		 <=	'0';
+				MAR_Load	 <=	'0';
+				PC_Load		 <=	'0';
+				PC_Inc		  <=	'0';
+				A_Load		  <=	'0';
+				B_Load		  <=	Load;
+				ALU_Sel		 <=	"000";
+				CCR_Load	 <=	'0';
+				Bus1_Sel	 <=	"00";	--"00"=PC "01"=A "10"=B
+				Bus2_Sel	 <=	frm_mem;	--"00"=alu "01"=bus1 "10"=bus2
+				write		   <=	'0';
+				
+-----------LDB_DIR-------------------------------------------------------------------------------------
+				when s_ldb_dir_4 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	Load;
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <= '0';
+				  A_Load		  <=	'0';
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	PC;	
+				  Bus2_Sel	 <=	Bus1;
+				  write		   <=	'0';
+				  
+				when s_ldb_dir_5 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	'0';
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <=	Load;
+				  A_Load		  <=	'0';
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	"00";
+				  Bus2_Sel	 <=	"00";	
+				  write		   <=	'0';
+				  
+				when s_ldb_dir_6 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	Load;
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <=	'0';
+				  A_Load		  <=	'0';
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	"00";	
+				  Bus2_Sel	 <=	frm_mem;
+				  write		   <=	'0';
+				  
+				when s_ldb_dir_7 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	'0';
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <=	'0';
+				  A_Load		  <=	'0';
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	"00";	
+				  Bus2_Sel	 <=	"00";	
+				  write		   <=	'0';
+				  
+				when s_ldb_dir_8 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	'0';
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <=	'0';
+				  A_Load		  <=	'0';
+				  B_Load		  <=	Load;
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	"00";
+				  Bus2_Sel	 <=	frm_mem;
+				  write		   <=	'0';
+				  
+----------STB_DIR---------------------------------------------------------------------------------------
+				when s_stb_dir_4 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	Load;
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <=	'0';
+				  A_Load		  <=	'0';
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	PC;	--"00"=PC "01"=A "10"=B
+				  Bus2_Sel	 <=	Bus1;	--"00"=alu "01"=bus1 "10"=bus2
+				  write		   <=	'0';
+				  
+				when s_stb_dir_5 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	'0';
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <=	Load;
+				  A_Load		  <=	'0';
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	"00";	--"00"=PC "01"=A "10"=B
+				  Bus2_Sel	 <=	"00";	--"00"=alu "01"=bus1 "10"=bus2
+				  write		   <=	'0';
+				  
+				when s_stb_dir_6 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	Load;
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <=	'0';
+				  A_Load		  <=	'0';
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	"00";	--"00"=PC "01"=A "10"=B
+				  Bus2_Sel	 <=	frm_mem;	--"00"=alu "01"=bus1 "10"=bus2
+				  write		   <=	'0';
+				  
+				when s_stb_dir_7 =>			--?????????
+				  IR_Load		 <=	'0';
+				  MAR_Load	 <=	'0';
+				  PC_Load		 <=	'0';
+				  PC_Inc		  <=	'0';
+				  A_Load		  <=	'0';
+				  B_Load		  <=	'0';
+				  ALU_Sel		 <=	"000";
+				  CCR_Load	 <=	'0';
+				  Bus1_Sel	 <=	B;	--"00"=PC "01"=A "10"=B
+				  Bus2_Sel	 <=	"00";	--"00"=alu "01"=bus1 "10"=bus2
+				  write		   <=	Load;
+				  
+-------------ADD_AB------------------------------------------------------------------------------------
+				  when s_add_ab_4 =>			--?????????
+				    IR_Load		 <=	'0';
+				    MAR_Load	 <=	Load;
+				    PC_Load		 <=	'0';
+				    PC_Inc		  <=	'0';
+				    A_Load		  <=	Load;
+				    B_Load		  <=	'0';
+				    ALU_Sel		 <=	ADD;
+				    CCR_Load	 <=	Load;
+				    Bus1_Sel	 <=	A;	
+				    Bus2_Sel	 <=	ALU;	
+				    write		   <=	'0';
+				    
+--------------SUB_AB----------------------------------------------------------------------------------
+          when s_sub_ab_4 =>			--?????????
+				    IR_Load		 <=	'0';
+				    MAR_Load	 <=	Load;
+				    PC_Load		 <=	'0';
+				    PC_Inc		  <=	'0';
+				    A_Load		  <=	Load;
+				    B_Load		  <=	'0';
+				    ALU_Sel		 <=	SUB;
+				    CCR_Load	 <=	Load;
+				    Bus1_Sel	 <=	A;	
+				    Bus2_Sel	 <=	ALU;	
+				    write		   <=	'0';
+				    
+---------------Branch always Command-------------------------------------------------------------------				  
+				  when s_bra_4 =>			--?????????
+				    IR_Load		 <=	'0';
+				    MAR_Load	 <=	Load;
+				    PC_Load		 <=	'0';
+				    PC_Inc		  <=	'0';
+				    A_Load		  <=	'0';
+				    B_Load		  <=	'0';
+				    ALU_Sel		 <=	"000";
+				    CCR_Load	 <=	'0';
+				    Bus1_Sel	 <=	PC;	--"00"=PC "01"=A "10"=B
+				    Bus2_Sel	 <=	Bus1;	--"00"=alu "01"=bus1 "10"=bus2
+				    write		   <=	'0';
+				    
+				  when s_bra_5 =>			--?????????
+				    IR_Load		 <=	'0';
+				    MAR_Load	 <=	'0';
+				    PC_Load		 <=	'0';
+				    PC_Inc		  <=	'0';
+				    A_Load		  <=	'0';
+				    B_Load		  <=	'0';
+				    ALU_Sel		 <=	"000";
+				    CCR_Load	 <=	'0';
+				    Bus1_Sel	 <=	"00";	--"00"=PC "01"=A "10"=B
+				    Bus2_Sel	 <=	"00";	--"00"=alu "01"=bus1 "10"=bus2
+				    write		   <=	'0';
+				    
+				  when s_bra_6 =>			--?????????
+				    IR_Load		 <=	'0';
+				    MAR_Load	 <=	'0';
+				    PC_Load		 <=	Load;
+				    PC_Inc		  <=	'0';
+				    A_Load		  <=	'0';
+				    B_Load		  <=	'0';
+				    ALU_Sel		 <=	"000";
+				    CCR_Load	 <=	'0';
+				    Bus1_Sel	 <=	"00";	--"00"=PC "01"=A "10"=B
+				    Bus2_Sel	 <=	frm_mem;	--"00"=alu "01"=bus1 "10"=bus2
+				    write		   <=	'0';
+				    
+---------------Branch Equal To---------------------------				  
+				  when s_beq_4 =>			--?????????
+				    IR_Load		 <=	'0';
+				    MAR_Load	 <=	Load;
+				    PC_Load		 <=	'0';
+				    PC_Inc		  <=	'0';
+				    A_Load		  <=	'0';
+				    B_Load		  <=	'0';
+				    ALU_Sel		 <=	"000";
+				    CCR_Load	 <=	'0';
+				    Bus1_Sel	 <=	PC;	--"00"=PC "01"=A "10"=B
+				    Bus2_Sel	 <=	Bus1;	--"00"=alu "01"=bus1 "10"=bus2
+				    write		   <=	'0';
+				    
+				  when s_beq_5 =>			--?????????
+				    IR_Load		 <=	'0';
+				    MAR_Load	 <=	'0';
+				    PC_Load		 <=	'0';
+				    PC_Inc		  <=	'0';
+				    A_Load		  <=	'0';
+				    B_Load		  <=	'0';
+				    ALU_Sel		 <=	"000";
+				    CCR_Load	 <=	'0';
+				    Bus1_Sel	 <=	"00";	--"00"=PC "01"=A "10"=B
+				    Bus2_Sel	 <=	"00";	--"00"=alu "01"=bus1 "10"=bus2
+				    write		   <=	'0';
+				    
+				  when s_beq_6 =>			--?????????
+				    IR_Load		 <=	'0';
+				    MAR_Load	 <=	'0';
+				    PC_Load		 <=	'0';
+				    PC_Inc		  <=	'0';
+				    A_Load		  <=	'0';
+				    B_Load		  <=	'0';
+				    ALU_Sel		 <=	"000";
+				    CCR_Load	 <=	'0';
+				    Bus1_Sel	 <=	"00";	--"00"=PC "01"=A "10"=B
+				    Bus2_Sel	 <=	frm_mem;	--"00"=alu "01"=bus1 "10"=bus2
+				    write		   <=	'0';
+				    
+				  when s_beq_7 =>			--?????????
+				    IR_Load		 <=	'0';
+				    MAR_Load	 <=	'0';
+				    PC_Load		 <=	'0';
+				    PC_Inc		  <=	Load;
+				    A_Load		  <=	'0';
+				    B_Load		  <=	'0';
+				    ALU_Sel		 <=	"000";
+				    CCR_Load	 <=	'0';
+				    Bus1_Sel	 <=	"00";	--"00"=PC "01"=A "10"=B
+				    Bus2_Sel	 <=	"00";	--"00"=alu "01"=bus1 "10"=bus2
+				    write		   <=	'0';
+
+--------------Branch V flag set----------------------------------------------------------------
+				    when s_bvs_4 =>			--?????????
+				    IR_Load		 <=	'0';
+				    MAR_Load	 <=	Load;
+				    PC_Load		 <=	'0';
+				    PC_Inc		  <=	'0';
+				    A_Load		  <=	'0';
+				    B_Load		  <=	'0';
+				    ALU_Sel		 <=	"000";
+				    CCR_Load	 <=	'0';
+				    Bus1_Sel	 <=	PC;	--"00"=PC "01"=A "10"=B
+				    Bus2_Sel	 <=	Bus1;	--"00"=alu "01"=bus1 "10"=bus2
+				    write		   <=	'0';
+				    
+				  when s_bvs_5 =>			--?????????
+				    IR_Load		 <=	'0';
+				    MAR_Load	 <=	'0';
+				    PC_Load		 <=	'0';
+				    PC_Inc		  <=	'0';
+				    A_Load		  <=	'0';
+				    B_Load		  <=	'0';
+				    ALU_Sel		 <=	"000";
+				    CCR_Load	 <=	'0';
+				    Bus1_Sel	 <=	"00";	--"00"=PC "01"=A "10"=B
+				    Bus2_Sel	 <=	"00";	--"00"=alu "01"=bus1 "10"=bus2
+				    write		   <=	'0';
+				    
+				  when s_bvs_6 =>			--?????????
+				    IR_Load		 <=	'0';
+				    MAR_Load	 <=	'0';
+				    PC_Load		 <=	'0';
+				    PC_Inc		  <=	'0';
+				    A_Load		  <=	'0';
+				    B_Load		  <=	'0';
+				    ALU_Sel		 <=	"000";
+				    CCR_Load	 <=	'0';
+				    Bus1_Sel	 <=	"00";	--"00"=PC "01"=A "10"=B
+				    Bus2_Sel	 <=	frm_mem;	--"00"=alu "01"=bus1 "10"=bus2
+				    write		   <=	'0';
+				    
+				  when s_bvs_7 =>			--?????????
+				    IR_Load		 <=	'0';
+				    MAR_Load	 <=	'0';
+				    PC_Load		 <=	'0';
+				    PC_Inc		  <=	Load;
+				    A_Load		  <=	'0';
+				    B_Load		  <=	'0';
+				    ALU_Sel		 <=	"000";
+				    CCR_Load	 <=	'0';
+				    Bus1_Sel	 <=	"00";	--"00"=PC "01"=A "10"=B
+				    Bus2_Sel	 <=	"00";	--"00"=alu "01"=bus1 "10"=bus2
+				    write		   <=	'0';
+				    
+				
+		  when others =>
+		    IR_Load		 <=	'0';
+	 		  MAR_Load	 <=	'0';
+			  PC_Load		 <=	'0';
+			  PC_Inc		  <=	'0';
+			  A_Load		  <=	'0';
+			  B_Load		  <=	'0';
+		   	ALU_Sel	 	<=	"000";
+			  CCR_Load	 <=	'0';
+			  Bus1_Sel	 <=	"00";	--"00"=PC "01"=A "10"=B
+			  Bus2_Sel	 <=	"00";	--"00"=alu "01"=bus1 "10"=bus2
+			  write		   <=	'0';
+			  
+	   end case;
+	end process;
+end architecture;

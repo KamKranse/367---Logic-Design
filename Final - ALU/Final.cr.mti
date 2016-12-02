@@ -1,0 +1,78 @@
+{Z:/EELE 367_DL/Code_Name_Omega/alu.vhd} {1 {vcom -work work -2002 -explicit {Z:/EELE 367_DL/Code_Name_Omega/alu.vhd}
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity alu
+-- Compiling architecture alu_arch of alu
+
+} {} {}} {Z:/EELE 367_DL/Code_Name_Omega/data_path.vhd} {1 {vcom -work work -2002 -explicit {Z:/EELE 367_DL/Code_Name_Omega/data_path.vhd}
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity data_path
+-- Compiling architecture data_path_arch of data_path
+
+} {} {}} {Z:/EELE 367_DL/Code_Name_Omega/top.vhd} {0 {vcom -work work -2002 -explicit {Z:/EELE 367_DL/Code_Name_Omega/top.vhd}
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+** Error: Z:/EELE 367_DL/Code_Name_Omega/top.vhd(2): (vcom-1491) Empty source files.
+
+
+} {4.0 5.0} {}} {Z:/EELE 367_DL/Code_Name_Omega/rw_96x8_sync.vhd} {1 {vcom -work work -2002 -explicit {Z:/EELE 367_DL/Code_Name_Omega/rw_96x8_sync.vhd}
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity rw_96x8_sync
+-- Compiling architecture rw_96x8_sync_arch of rw_96x8_sync
+
+} {} {}} {Z:/EELE 367_DL/Code_Name_Omega/Computer.vhd} {0 {vcom -work work -2002 -explicit {Z:/EELE 367_DL/Code_Name_Omega/Computer.vhd}
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+** Error: Z:/EELE 367_DL/Code_Name_Omega/Computer.vhd(2): (vcom-1491) Empty source files.
+
+
+} {4.0 5.0} {}} {Z:/EELE 367_DL/Code_Name_Omega/rom_128x8_sync.vhd} {1 {vcom -work work -2002 -explicit {Z:/EELE 367_DL/Code_Name_Omega/rom_128x8_sync.vhd}
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity rom_128x8_sync
+-- Compiling architecture rom_128x8_sync_arch of rom_128x8_sync
+
+} {} {}} {Z:/EELE 367_DL/Code_Name_Omega/CPU.vhd} {0 {vcom -work work -2002 -explicit {Z:/EELE 367_DL/Code_Name_Omega/CPU.vhd}
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity CPU
+** Error: Z:/EELE 367_DL/Code_Name_Omega/CPU.vhd(6): near "EOF": syntax error
+
+} {8.0 9.0} {}} {Z:/EELE 367_DL/Code_Name_Omega/control_unit.vhd} {0 {vcom -work work -2002 -explicit {Z:/EELE 367_DL/Code_Name_Omega/control_unit.vhd}
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity control_unit
+-- Compiling architecture control_unit_arch of control_unit
+** Error: Z:/EELE 367_DL/Code_Name_Omega/control_unit.vhd(148): near "IR_Load": expecting => or '|' or '!'
+** Error: Z:/EELE 367_DL/Code_Name_Omega/control_unit.vhd(160): near "case": expecting PROCESS
+
+} {9.0 11.0} {}} {Z:/EELE 367_DL/Code_Name_Omega/memory.vhd} {1 {vcom -work work -2002 -explicit {Z:/EELE 367_DL/Code_Name_Omega/memory.vhd}
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity memory
+-- Compiling architecture memory_arch of memory
+
+} {} {}}

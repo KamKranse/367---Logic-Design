@@ -1,0 +1,445 @@
+m255
+K3
+13
+cModel Technology
+dC:\altera\14.0
+Ealu
+Z0 w1430342938
+Z1 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+Z2 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z3 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z4 dZ:\EELE 367_DL\Code_Name_Omega
+Z5 8Z:/EELE 367_DL/Code_Name_Omega/alu.vhd
+Z6 FZ:/EELE 367_DL/Code_Name_Omega/alu.vhd
+l0
+L5
+VXEe4Afnn?UmWl[Em>4i:81
+Z7 OV;C;10.1e;51
+32
+Z8 !s108 1430359986.179000
+Z9 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/EELE 367_DL/Code_Name_Omega/alu.vhd|
+Z10 !s107 Z:/EELE 367_DL/Code_Name_Omega/alu.vhd|
+Z11 o-work work -2002 -explicit -O0
+Z12 tExplicit 1
+!s100 oHlk_7<jzM6Llkn6YP]:f3
+!i10b 1
+Aalu_arch
+R1
+R2
+R3
+DEx4 work 3 alu 0 22 XEe4Afnn?UmWl[Em>4i:81
+l15
+L13
+VQWZkATUJPZ@`jRgd6]aZz1
+R7
+32
+R8
+R9
+R10
+R11
+R12
+!s100 kN9?_AhPo]V6dfe;A5OH_2
+!i10b 1
+Eclock_div_prec
+Z13 w1426721964
+R1
+R2
+R3
+R4
+Z14 8Z:/EELE 367_DL/Lab_Foxtrot - Copy - Copy - Copy/clock_div_prec.vhd
+Z15 FZ:/EELE 367_DL/Lab_Foxtrot - Copy - Copy - Copy/clock_div_prec.vhd
+l0
+L5
+VWVP7Rz]K^;MU2]8Z@4g=72
+R7
+32
+Z16 !s108 1430267277.364000
+Z17 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/EELE 367_DL/Lab_Foxtrot - Copy - Copy - Copy/clock_div_prec.vhd|
+Z18 !s107 Z:/EELE 367_DL/Lab_Foxtrot - Copy - Copy - Copy/clock_div_prec.vhd|
+R11
+R12
+!s100 1?ZWl4?gBXNYLcH?:eIXO0
+!i10b 1
+Aclock_div_prec_arch
+R1
+R2
+R3
+DEx4 work 14 clock_div_prec 0 22 WVP7Rz]K^;MU2]8Z@4g=72
+l18
+L12
+VAgM1CK[zA3BUH5FddG;eb1
+R7
+32
+R16
+R17
+R18
+R11
+R12
+!s100 1B[Vaca[]S:0Foh>m;6LY3
+!i10b 1
+Ecomputer
+Z19 w1430271742
+R1
+R2
+R3
+R4
+Z20 8Z:/EELE 367_DL/Code_Name_Omega/Computer.vhd
+Z21 FZ:/EELE 367_DL/Code_Name_Omega/Computer.vhd
+l0
+L5
+VBn;TZ<HYZOoDhLR7OO`T@2
+R7
+32
+Z22 !s108 1430359986.567000
+Z23 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/EELE 367_DL/Code_Name_Omega/Computer.vhd|
+Z24 !s107 Z:/EELE 367_DL/Code_Name_Omega/Computer.vhd|
+R11
+R12
+!s100 hnc^>QP`MCc48aNm4O7632
+!i10b 1
+Acomputer_arch
+R1
+R2
+R3
+DEx4 work 8 computer 0 22 Bn;TZ<HYZOoDhLR7OO`T@2
+l100
+L43
+VEz<k3LIHOMgnFZlW40O?10
+R7
+32
+R22
+R23
+R24
+R11
+R12
+!s100 :[@JzSIe@XZ?LPcO>==<c0
+!i10b 1
+Ecomputer_tb
+Z25 w1430262602
+R2
+R3
+R4
+Z26 8C:/Users/r19f793/Downloads/computer_TB.vhd
+Z27 FC:/Users/r19f793/Downloads/computer_TB.vhd
+l0
+L18
+Vm37zEADBDYG8T`WZ=DWce2
+R7
+32
+Z28 !s108 1430267278.285000
+Z29 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/r19f793/Downloads/computer_TB.vhd|
+Z30 !s107 C:/Users/r19f793/Downloads/computer_TB.vhd|
+R11
+R12
+!s100 Vj`aJkKPD:X>F7^P911L50
+!i10b 1
+Acomputer_tb_arch
+R2
+R3
+DEx4 work 11 computer_tb 0 22 m37zEADBDYG8T`WZ=DWce2
+l101
+L21
+VWbC^[8CRnzkRJDl[HI6a31
+R7
+32
+R28
+R29
+R30
+R11
+R12
+!s100 d^SzR8^VIfKMDcZcJ2]k93
+!i10b 1
+Econtrol_unit
+Z31 w1430344943
+R1
+R2
+R3
+R4
+Z32 8Z:/EELE 367_DL/Code_Name_Omega/control_unit.vhd
+Z33 FZ:/EELE 367_DL/Code_Name_Omega/control_unit.vhd
+l0
+L5
+V73<2O]NKmOj00V]f0k4jR2
+R7
+32
+Z34 !s108 1430359986.955000
+Z35 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/EELE 367_DL/Code_Name_Omega/control_unit.vhd|
+Z36 !s107 Z:/EELE 367_DL/Code_Name_Omega/control_unit.vhd|
+R11
+R12
+!s100 9?5Ce_ocAI?^zW0oKj2Y?3
+!i10b 1
+Acontrol_unit_arch
+R1
+R2
+R3
+DEx4 work 12 control_unit 0 22 73<2O]NKmOj00V]f0k4jR2
+l76
+L24
+VX8BZ<E@5C<`7]J^VgFF2C3
+R7
+32
+R34
+R35
+R36
+R11
+R12
+!s100 UoT=keYF[G2lQ;USIVAVS0
+!i10b 1
+Ecpu
+Z37 w1430277456
+R1
+R2
+R3
+R4
+Z38 8Z:/EELE 367_DL/Code_Name_Omega/CPU.vhd
+Z39 FZ:/EELE 367_DL/Code_Name_Omega/CPU.vhd
+l0
+L5
+V5H;2CkjKkcAJ0JFAjWiK_3
+R7
+32
+Z40 !s108 1430359987.339000
+Z41 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/EELE 367_DL/Code_Name_Omega/CPU.vhd|
+Z42 !s107 Z:/EELE 367_DL/Code_Name_Omega/CPU.vhd|
+R11
+R12
+!s100 Y4J_?JIZ@[<@fGoX5eS6f1
+!i10b 1
+Acpu_arch
+R1
+R2
+R3
+DEx4 work 3 cpu 0 22 5H;2CkjKkcAJ0JFAjWiK_3
+l62
+L15
+Vhi<5h>E7VnIcTH>Om:VdK0
+R7
+32
+R40
+R41
+R42
+R11
+R12
+!s100 =ikzEZmb6BaG8>C12nX=A0
+!i10b 1
+Edata_path
+Z43 w1430338825
+R1
+R2
+R3
+R4
+Z44 8Z:/EELE 367_DL/Code_Name_Omega/data_path.vhd
+Z45 FZ:/EELE 367_DL/Code_Name_Omega/data_path.vhd
+l0
+L5
+V57J<;KK_Ajdb0F`h4a2gg0
+R7
+32
+Z46 !s108 1430359987.744000
+Z47 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/EELE 367_DL/Code_Name_Omega/data_path.vhd|
+Z48 !s107 Z:/EELE 367_DL/Code_Name_Omega/data_path.vhd|
+R11
+R12
+!s100 R@DlVXIN7PMa[UogXQdl22
+!i10b 1
+Adata_path_arch
+R1
+R2
+R3
+DEx4 work 9 data_path 0 22 57J<;KK_Ajdb0F`h4a2gg0
+l40
+L25
+V=CGJKXa7@BZ_D5bWlC3OI3
+R7
+32
+R46
+R47
+R48
+R11
+R12
+!s100 ZUSaz]bP3bIFVQF0Vz`OQ2
+!i10b 1
+Edecoder
+Z49 w1430260708
+R2
+R3
+R4
+Z50 8Z:\EELE 367_DL\Lab_Foxtrot - Copy\Decoder.vhd
+Z51 FZ:\EELE 367_DL\Lab_Foxtrot - Copy\Decoder.vhd
+l0
+L4
+VfPk9SF^ICgNmjmXBHThni1
+R7
+32
+Z52 !s108 1430267277.848000
+Z53 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:\EELE 367_DL\Lab_Foxtrot - Copy\Decoder.vhd|
+Z54 !s107 Z:\EELE 367_DL\Lab_Foxtrot - Copy\Decoder.vhd|
+R11
+R12
+!s100 ji]bgJ<Fk2Efm;9QA@@BN3
+!i10b 1
+Adecoder_arch
+R2
+R3
+DEx4 work 7 decoder 0 22 fPk9SF^ICgNmjmXBHThni1
+l11
+L9
+V:m^m]OhSTI?S=a:XKUYgg2
+R7
+32
+R52
+R53
+R54
+R11
+R12
+!s100 A9:D3dETbi1LLIjngIe4c3
+!i10b 1
+Ememory
+Z55 w1429746458
+R1
+R2
+R3
+R4
+Z56 8Z:/EELE 367_DL/Code_Name_Omega/memory.vhd
+Z57 FZ:/EELE 367_DL/Code_Name_Omega/memory.vhd
+l0
+L5
+VjUM]c6RfIC9i`RMYTKYJR2
+R7
+32
+Z58 !s108 1430359988.160000
+Z59 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/EELE 367_DL/Code_Name_Omega/memory.vhd|
+Z60 !s107 Z:/EELE 367_DL/Code_Name_Omega/memory.vhd|
+R11
+R12
+!s100 US;oOVeb:oh?:AhCAb=:02
+!i10b 1
+Amemory_arch
+R1
+R2
+R3
+DEx4 work 6 memory 0 22 jUM]c6RfIC9i`RMYTKYJR2
+l66
+L47
+Vz[GCV=Qg9_k>7GHeNhSYZ2
+R7
+32
+R58
+R59
+R60
+R11
+R12
+!s100 Ran2mhL<RhZ1l55ezD2d=0
+!i10b 1
+Erom_128x8_sync
+Z61 w1430359981
+R1
+R2
+R3
+R4
+Z62 8Z:/EELE 367_DL/Code_Name_Omega/rom_128x8_sync.vhd
+Z63 FZ:/EELE 367_DL/Code_Name_Omega/rom_128x8_sync.vhd
+l0
+L5
+VeTj^hjQ?6Kf:<lWaNFUdR3
+R7
+32
+Z64 !s108 1430359988.559000
+Z65 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/EELE 367_DL/Code_Name_Omega/rom_128x8_sync.vhd|
+Z66 !s107 Z:/EELE 367_DL/Code_Name_Omega/rom_128x8_sync.vhd|
+R11
+R12
+!s100 eLG`D6UI1fW8QL:;hQNK@2
+!i10b 1
+Arom_128x8_sync_arch
+R1
+R2
+R3
+DEx4 work 14 rom_128x8_sync 0 22 eTj^hjQ?6Kf:<lWaNFUdR3
+l52
+L11
+V1N6ZJDO^V^^>8VF2Ej1i92
+R7
+32
+R64
+R65
+R66
+R11
+R12
+!s100 :hP[W2m6kUm=hNg30hl0:2
+!i10b 1
+Erw_96x8_sync
+Z67 w1430327892
+R1
+R2
+R3
+R4
+Z68 8Z:/EELE 367_DL/Code_Name_Omega/rw_96x8_sync.vhd
+Z69 FZ:/EELE 367_DL/Code_Name_Omega/rw_96x8_sync.vhd
+l0
+L5
+V^:F:UUYB2nM`7LVL:QB^A2
+R7
+32
+Z70 !s108 1430359988.952000
+Z71 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/EELE 367_DL/Code_Name_Omega/rw_96x8_sync.vhd|
+Z72 !s107 Z:/EELE 367_DL/Code_Name_Omega/rw_96x8_sync.vhd|
+R11
+R12
+!s100 8HR[_blVl:X6WW`QoTS@_3
+!i10b 1
+Arw_96x8_sync_arch
+R1
+R2
+R3
+DEx4 work 12 rw_96x8_sync 0 22 ^:F:UUYB2nM`7LVL:QB^A2
+l20
+L13
+VT@:`:G>ael7NznZ]>Gz<B3
+!s100 _H>`;^T8N48aFN]BCWGhY3
+R7
+32
+R70
+R71
+R72
+R11
+R12
+!i10b 1
+Etop
+Z73 w1430262156
+R1
+R2
+R3
+R4
+Z74 8Z:/EELE 367_DL/Code_Name_Omega/top.vhd
+Z75 FZ:/EELE 367_DL/Code_Name_Omega/top.vhd
+l0
+L5
+V47KFJ<`VH?6h6<bZYn<PK0
+!s100 KMz5aiKJialDAk3HEbhhf0
+R7
+32
+!i10b 1
+Z76 !s108 1430359989.412000
+Z77 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/EELE 367_DL/Code_Name_Omega/top.vhd|
+Z78 !s107 Z:/EELE 367_DL/Code_Name_Omega/top.vhd|
+R11
+R12
+Atop_arch
+R1
+R2
+R3
+Z79 DEx4 work 3 top 0 22 47KFJ<`VH?6h6<bZYn<PK0
+l78
+L20
+Z80 V?n^?VHmRGiMJHU5eR>QUZ1
+Z81 !s100 H>84<`bIiEEfnKEkF_g]41
+R7
+32
+!i10b 1
+R76
+R77
+R78
+R11
+R12
